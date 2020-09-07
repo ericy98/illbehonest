@@ -1,115 +1,120 @@
 <!-- OUTER ACCORDION -->
 
 <div class="accordian" id="accordionExample">
-    {{#each posts as |post|}}
-      <div class="card">
-        <div class="card-header" id="headingOne">
-          <h2 class="mb-0">
-            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#post{{post.id}}" aria-expanded="true" aria-controls="collapseOne">
-                {{post.title}} 
-          
-            </button>
-          </h2>
-          <div class="meta">
-                <!-- <p>{{post.summary}}</p> -->
-                {{post.vote_count}} point(s) by {{post.user.username}} on
-                  {{post.created_at}}
-                  |
-                  <a href="#exampleModal{{post.id}}" data-toggle="modal" data-target="#exampleModal{{post.id}}">{{post.s.length}} comment(s)</a>
-              </div>
-              <!-- Beginning Modal -->comment
-              <div class="modal fade" id="exampleModal{{post.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog mw-100 w-100" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">{{post.title}}</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                      <div id="post{{post.id}}">
-                        <div class="card-body">
-                          <div class="row-my4">
-                            <div class="col-md-8">
-                              <h2 class="font-weight-bold mb-3 black-text"><!-- this could be a tagline in the future --></h2>
-                                <p class=""></p>
-                                <p class="mb-0">{{post.summary}}</p>
-                            </div>
-                            <div class="col-md-4 mt-3 pt-2">
-                              <div class="view z-depth-1">
-                                <img src="{{post.post_url}}" target="_blank" class="img-fluid">
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col-md-6">                         
-                                <form class="comment-form">
-                                  <div class="status-upload">
-                                    <textarea class="form-control rounded-0" name="comment-body" rows="3" placeholder="Time to Roast!"></textarea>
-<<<<<<< HEAD
-                                    <button type="submit" class="comment-form btn btn-success green"><i class="fa fa-share"></i> Add Comment</button>
-                                    <button type="button" class="upvote-btn btn btn-info">upvote</button>
-                                  </form>
-                                </div>
-=======
-                                    <button type="submit" class="comment-submission btn btn-success green"><i class="fa fa-share"></i> Add Comment</button>
-                                    <button type="submit" class="upvote-btn btn btn-info">upvote</button>
-                                  </div>
-                                </form>
->>>>>>> 2cd04dd8b513ce01a243174573ad56521c63e331
-                              </div>
-                            </div>
-                            <!-- Existing Comments -->
-                            <div class="container">
-                              <div class="row">
-                                <div class="col-md-8">
-                                  <div class="page-header">
-                                    <h1>Comments </h1>
-                                  </div>
-                                  <div class="comments-list">
-                                    {{#each post.comments}}
-                                    <hr />
-                                    <div class="media">
-                                      <p>{{user.username}} on {{created_at}} </p>
-                                    </div>
-                                    <div class="media-body">
-                                      <h4>{{comment_text}}</h4>
-                                  </div>
-                                    {{/each}}
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
+  {{#each posts as |post|}}
+  <div class="card">
+    <div class="card-header" id="headingOne">
+      <h2 class="mb-0">
+        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#post{{post.id}}"
+          aria-expanded="true" aria-controls="collapseOne">
 
+        </button>
+      </h2>
+      <article class="post">
+        <div class="title">
+          <a href="{{post_url}}" target="_blank">{{title}}</a>
+          <span>({{format_url post_url}})</span>
+        </div>
+        <div class="meta">
+          {{vote_count}} {{format_plural "point" vote_count}} by {{user.username}} on {{format_date created_at}}
+          |
+          <a href="/post/{{id}}">{{comments.length}} {{format_plural "comment" comments.length}}</a>
+        </div>
+      </article>
+      {{!-- <!-- Beginning Modal -->comment --}}
+      <div class="modal fade" id="exampleModal{{post.id}}" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog mw-100 w-100" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">{{post.title}}</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div id="post{{post.id}}">
+                <div class="card-body">
+                  <div class="row-my4">
+                    <div class="col-md-8">
+                      <h2 class="font-weight-bold mb-3 black-text">
+                        <!-- this could be a tagline in the future -->
+                      </h2>
+                      <p class=""></p>
+                      <p class="mb-0">{{post.summary}}</p>
+                    </div>
+                    <div class="col-md-4 mt-3 pt-2">
+                      <div class="view z-depth-1">
+                        <img src="{{post.post_url}}" target="_blank" class="img-fluid">
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <form class="comment-form">
+                          <div class="status-upload">
+                            <textarea class="form-control rounded-0" name="comment-body" rows="3"
+                              placeholder="Time to Roast!"></textarea>
+                            <button type="submit" class="comment-submission btn btn-success green"><i
+                                class="fa fa-share"></i> Add Comment</button>
+                            <button type="submit" class="upvote-btn btn btn-info">upvote</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                    <!-- Existing Comments -->
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-md-8">
+                          <div class="page-header">
+                            <h1>Comments </h1>
+                          </div>
+                          <div class="comments-list">
+                            {{#each post.comments}}
+                            <hr />
+                            <div class="media">
+                              <p>{{user.username}} on {{created_at}} </p>
+                            </div>
+                            <div class="media-body">
+                              <h4>{{comment_text}}</h4>
+                            </div>
+                            {{/each}}
                           </div>
                         </div>
                       </div>
-                    </div> <!--Modal Body End-->
+                    </div>
+
                   </div>
                 </div>
               </div>
-              <!-- END MODAL -->
             </div>
-        <div id="post{{post.id}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-          <div class="card-body">
-            <div class="row-my4">
-              <div class="col-md-8">
-                <h2 class="font-weight-bold mb-3 black-text"><!-- this could be a tagline in the future --></h2>
-                  <p class=""></p>
-                  <p class="mb-0">{{post.summary}}</p>
-              </div>
-              <div class="col-md-4 mt-3 pt-2">
-                <div class="view z-depth-1">
-                  <img src="{{post.post_url}}" target="_blank" class="img-fluid">
-                </div>
-              </div>
+            <!--Modal Body End-->
+          </div>
+        </div>
+      </div>
+      <!-- END MODAL -->
+    </div>
+    <div id="post{{post.id}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+      <div class="card-body">
+        <div class="row-my4">
+          <div class="col-md-8">
+            <h2 class="font-weight-bold mb-3 black-text">
+              <!-- this could be a tagline in the future -->
+            </h2>
+            <p class=""></p>
+            <p class="mb-0">{{post.summary}}</p>
+          </div>
+          <div class="col-md-4 mt-3 pt-2">
+            <div class="view z-depth-1">
+              <img src="{{post.post_url}}" target="_blank" class="img-fluid">
             </div>
           </div>
         </div>
       </div>
     </div>
-  {{/each}}
-                  
+  </div>
+</div>
+{{/each}}
+
 {{#if loggedIn}}
 <script src="/javascript/comment.js"></script>
 <script src="/javascript/upvote.js"></script>

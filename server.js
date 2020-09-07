@@ -4,7 +4,6 @@ const routes = require('./controllers');
 const sequelize = require('./config/connection');
 // Handblebars import and create
 const exphbs = require('express-handlebars');
-const hbs = exphbs.create({});
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -30,6 +29,8 @@ const sess = {
     })
 };
 
+const helpers = require('./utils/helpers');
+const hbs = exphbs.create({ helpers });
 // session with secret created and directed to the dotenv file
 app.use(session(sess));
 
@@ -42,6 +43,7 @@ app.use(routes);
 // Handlebars engine / set 
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
+
 
 sequelize.sync({ force: false }).then(() => {
     app.listen(PORT, () => console.log('Now listening'));
