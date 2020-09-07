@@ -24,6 +24,17 @@ const multer = Multer({
 
 const bucket = storage.bucket(process.env.GSC_BUCKET)
 
+{/* <div>
+  <h1>Uploading images with Google Cloud Bucket</h1>
+
+  <form id="create-form" enctype="multipart/form-data" method="POST">
+      <input type="text" placeholder="Name of photo"/>
+      <input name="userImg" type="file">
+                <div class="ui icon button">
+                  <i class="attach icon"></i>
+          </div>
+  </form>
+</div> */}
 
 // get all users
 // router.get('/', withAuth, (req, res) => {
