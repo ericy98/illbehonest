@@ -1,4 +1,16 @@
 <!-- OUTER ACCORDION -->
+<div>
+  <h1>Uploading images with Google Cloud Bucket</h1>
+
+  <form id="create-form" enctype="multipart/form-data" method="POST">
+    <input id="name" type="text" placeholder="Name of photo" />
+    <input id="userImg" name="userImg" type="file">
+    <div class="ui icon button">
+      <i class="attach icon"></i>
+    </div>
+    <button type="submit">Upload Image</button>
+  </form>
+</div>
 
 <div class="accordian" id="accordionExample">
     {{#each posts as |post|}}
@@ -106,6 +118,7 @@
     {{/each}}
   </div>
 </div>
+<script src="/javascript/index.js"></script>
  
                   
 

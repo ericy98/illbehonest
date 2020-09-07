@@ -4,7 +4,8 @@ const sequelize = require('../../config/connection');
 const withAuth = require('../../utils/auth');
 const Multer = require("multer")
 const { Storage } = require("@google-cloud/storage")
-const uuid = require("uuid")
+const uuid = require("uuid");
+const uuidv1 = uuid.v1;
 require("dotenv").config()
 
 const storage = new Storage({
@@ -24,17 +25,24 @@ const multer = Multer({
 
 const bucket = storage.bucket(process.env.GSC_BUCKET)
 
-{/* <div>
-  <h1>Uploading images with Google Cloud Bucket</h1>
+router.post('/', multer.single("file"), (req, res) => {
+  const newFileName = uuidv1() + "-" + req.file.originalname
+  const blob = bucket.file(newFileName)
+  const blobStream = blob.createWriteStream()
 
-  <form id="create-form" enctype="multipart/form-data" method="POST">
-      <input type="text" placeholder="Name of photo"/>
-      <input name="userImg" type="file">
-                <div class="ui icon button">
-                  <i class="attach icon"></i>
-          </div>
-  </form>
-</div> */}
+  blobStream.on("error", err => console.log(err))
+
+  blobStream.on("finish", () => {
+    const publicUrl = `https://storage.googleapi.com/${process.env.GSC_BUCKET}/${blob.name}`
+    
+    const imageDetails = JSON.parse(req.body.data)
+    imageDetails.image = publicUrl 
+
+    db.Image.create(imageDetails).then(() => res.json(imageDetails))
+  })
+
+  blobStream.end(req.file.buffer)
+})
 
 // get all users
 // router.get('/', withAuth, (req, res) => {
