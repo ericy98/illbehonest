@@ -38,7 +38,7 @@ router.post('/', multer.single("file"), (req, res) => {
     const imageDetails = JSON.parse(req.body.data)
     imageDetails.image = publicUrl 
 
-    db.Image.create(imageDetails).then(() => res.json(imageDetails))
+    // db.Image.create(imageDetails).then(() => res.json(imageDetails))
   })
 
   blobStream.end(req.file.buffer)

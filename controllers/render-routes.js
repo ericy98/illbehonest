@@ -7,4 +7,9 @@ router.get("/", (req, res) => {
     res.render("index")
 })
 
+router.get("/images", (req, res) => {
+    db.Image.findAll({}).then(image => {
+        res.render("images", { images: image })
+    })
+})
 module.exports = router;

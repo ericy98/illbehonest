@@ -1,13 +1,13 @@
 $(function () {
     const form = $("#create-form")
 
-    form.on("submit", function(event) {
+    form.on("submit", function (event) {
         event.preventDefault();
 
         const imageName = $("#name").val().trim()
         const file = $("#userImg")[0].files[0]
 
-        // console.log(file);
+       //console.log(file);
 
         const formData = new FormData
 
@@ -25,7 +25,7 @@ $(function () {
         $.ajax({
             type: "post",
             url: "/api/posts",
-            data: formData, 
+            data: formData,
             contentType: false,
             processData: false
         })
